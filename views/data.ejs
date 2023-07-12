@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      th,
+      td {
+        padding: 1px;
+      }
+      .column-data {
+        display: block;
+        width: 100px;
+        height: 10px;
+        background-color:green;
+        transition: width 0.3s ease-in-out;
+        
+      }
+      .column{
+        display: block;
+        width: 100px;
+        height: 10px;
+        background-color:rgb(199, 37, 37);
+        transition: width 0.3s ease-in-out;
+      }
+     
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Call</th>
+          <th>Strikeprice</th>
+          <th>Put</th>
+          <th>CeVol</th>
+          <th>PeVol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% x.forEach((item) => { %>
+        <tr>
+          <td class="column-data"  id="call" ><%=item.CE.ltp - item.strikePrice %></td>
+
+          <td><%=item.strikePrice %></td>
+          <td class="column"><%= item.strikePrice - item.PE.ltp %></td>
+          <td ><%= item.CE.volume %></td>
+          <td ><%= item.PE.volume %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <script>
+
+        const element = document.querySelectorAll('.column-data');
+       element.forEach(function(element){
+        const textContent = element.textContent;
+        const number = parseInt(textContent)
+        if(number < 0){
+            const widthP = 0.1;  
+            element.style.width = `${widthP}%`;
+
+        }
+        else{
+            const widthP = (2250000/number)*10;  
+            element.style.width = `${widthP}%`;
+
+        }
+      
+       
+        
+    })
+    const element2 = document.querySelectorAll('.column');
+       element2.forEach(function(element){
+        const textContent = element.textContent;
+        const number = parseInt(textContent)
+        if(number < 0){
+            const widthP = 10;  
+            element.style.width = `${widthP}%`;
+
+        }
+        else if(number > 0){
+            const widthP = (2250000/number)*10;  
+            element.style.width = `${widthP}%`;
+        }
+      
+       
+        
+    })
+   
+
+      
+
+    </script>
+  </body>
+</html>
